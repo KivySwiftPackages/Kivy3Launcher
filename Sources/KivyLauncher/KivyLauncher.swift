@@ -89,10 +89,10 @@ public final class KivyLauncher: PyLauncherIsolated {
         // Kivy environment to prefer some implementation on iOS platform
         #if os(iOS)
         env.KIVY_BUILD = "ios"
-        env.KIVY_WINDOW = "sdl2"
-        env.KIVY_IMAGE = "imageio,tex,gif,sdl2"
-        env.KIVY_AUDIO = "sdl2"
-        env.KIVY_GL_BACKEND = "sdl2"
+        env.KIVY_WINDOW = "sdl3"
+        env.KIVY_IMAGE = "imageio,tex,gif,sdl3"
+        env.KIVY_AUDIO = "sdl3"
+        env.KIVY_GL_BACKEND = "angle"
         
         // IOS_IS_WINDOWED=True disables fullscreen and then statusbar is shown
         env.IOS_IS_WINDOWED = IOS_IS_WINDOWED
@@ -168,13 +168,13 @@ public final class KivyLauncher: PyLauncherIsolated {
 	
     
     public static func SDLmain() -> Int32 {
-        guard
-            let sdl2Lib = Bundle.main.path(forResource: "Frameworks/SDL2.framework/SDL2", ofType: nil),
-            let handle = dlopen(sdl2Lib, RTLD_LAZY | RTLD_GLOBAL),
-            let symbol = dlsym(handle, "SDL_UIKitRunApp")
-        else {
-            return -1
-        }
+        //guard
+            let sdl2Lib = Bundle.main.path(forResource: "Frameworks/SDL3.framework/SDL3", ofType: nil)!
+            let handle = dlopen(sdl2Lib, RTLD_LAZY | RTLD_GLOBAL)!
+            let symbol = dlsym(handle, "SDL_RunApp")!
+//        else {
+//            return -1
+//        }
         let uikitrunapp = unsafeBitCast(symbol, to: SDL_UIKitRunApp.self)
         
         var argv: [UnsafeMutablePointer<CChar>?] = []
