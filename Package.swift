@@ -32,7 +32,7 @@ let pykit: Target.Dependency = .product(name: "SwiftonizeModules", package: "PyS
 
 
 let package = Package(
-    name: "KivyLauncher",
+    name: "Kivy3Launcher",
     platforms: [.iOS(.v13), .macOS(.v11)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
